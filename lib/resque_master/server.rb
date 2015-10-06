@@ -18,7 +18,7 @@ module ResqueMaster
     end
 
     def parse_message(payload)
-      JSON.parse(payload)
+      Marshal.load(payload)
     end
 
     def mq

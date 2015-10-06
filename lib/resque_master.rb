@@ -1,5 +1,4 @@
 require 'bunny'
-require 'json'
 
 require 'resque_master/version'
 require 'resque_master/mq'
@@ -37,7 +36,8 @@ module ResqueMaster
   # Example:
   #   ResqueMaster.run_on_master(:enqueue, ALongJob)
   def run_on_master(method_name, *args)
-    mq.exchange.publish([method_name, args].flatten.to_json, routing_key: mq.queue.name)
+    message = [method_name, args].flatten
+    mq.exchange.publish(Marshal.dump(message), routing_key: mq.queue.name)
   end
 
   def register_plugin(plugin)
