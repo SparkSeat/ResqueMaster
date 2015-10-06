@@ -10,8 +10,14 @@ module ResqueMaster
     end
 
     def run
-      load_enviroment
+      puts 'Welcome to ResqueMaster'
 
+      puts 'Loaded plugins:'
+      ResqueMaster.plugins.each do |plugin|
+        puts " * #{plugin.class.name}"
+      end
+
+      load_enviroment
       subscribe
 
       loop do

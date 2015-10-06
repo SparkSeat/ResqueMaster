@@ -6,6 +6,11 @@ require 'resque_master/mq'
 module ResqueMaster
   extend self
 
+  # An array of loaded plugins
+  @plugins = []
+
+  attr_reader :plugins
+
   # Public
   #
   # Define a resque method that should be proxied. For example, you may wish
@@ -40,8 +45,11 @@ module ResqueMaster
     mq.exchange.publish(Marshal.dump(message), routing_key: mq.queue.name)
   end
 
+  # Register a new ResqueMaster plugin.
+  #
+  # Plugins should ensure that any necessary libraries are loaded.
   def register_plugin(plugin)
-    plugin.new
+    @plugins << plugin.new
   end
 
   private
