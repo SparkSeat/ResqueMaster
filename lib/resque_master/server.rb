@@ -10,6 +10,10 @@ module ResqueMaster
     end
 
     def run
+      load_enviroment
+
+      subscribe
+
       loop do
         sleep(1)
       end
@@ -23,6 +27,24 @@ module ResqueMaster
 
     def mq
       @mq ||= ResqueMaster::MQ.new
+    end
+
+    # Loads the environment from the given configuration file.
+    # Stolen from Redis::CLI
+    def load_enviroment(file = nil)
+      file ||= '.'
+
+      if File.directory?(file) && File.exist?(File.expand_path("#{file}/config/environment.rb"))
+        require 'rails'
+        require File.expand_path("#{file}/config/environment.rb")
+
+        if defined?(::Rails) && ::Rails.respond_to?(:application)
+          # Rails 3
+          ::Rails.application.eager_load!
+        end
+      elsif File.file?(file)
+        require File.expand_path(file)
+      end
     end
   end
 end

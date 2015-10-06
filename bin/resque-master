@@ -5,5 +5,4 @@ require 'resque_master/server'
 
 server = ResqueMaster::Server.new
 
-server.subscribe
 server.run
