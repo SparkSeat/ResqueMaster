@@ -2,7 +2,8 @@ require 'resque'
 
 module ResqueMaster
   module Plugins
-    class Base
+    # This is a simple plugin that adds Resque's `enqueue` method
+    class Resque
       def initialize
         ResqueMaster.add_resque_methods(:enqueue)
       end
@@ -10,4 +11,4 @@ module ResqueMaster
   end
 end
 
-ResqueMaster.register_plugin(ResqueMaster::Plugins::Base)
+ResqueMaster.register_plugin(ResqueMaster::Plugins::Resque)

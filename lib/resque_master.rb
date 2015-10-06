@@ -59,5 +59,5 @@ module ResqueMaster
   end
 end
 
+require 'resque_master/plugins/resque'
 require 'resque_master/plugin_loader'
-require 'resque_master/plugins/base'
