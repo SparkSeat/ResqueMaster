@@ -1,4 +1,9 @@
 # This is an example config that registers the resque-scheduler plugin
-
 plugins:
   - resque_master/plugins/resque_scheduler
+
+# You may also wish to set:
+# host:     host
+# vhost:    example
+# username: username
+# password: password

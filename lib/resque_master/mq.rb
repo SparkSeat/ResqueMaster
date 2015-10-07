@@ -3,7 +3,13 @@ module ResqueMaster
     def connection
       return @connection if @connection
 
-      @connection = Bunny.new
+      @connection = Bunny.new(
+        host:     ResqueMaster.config['host'],
+        vhost:    ResqueMaster.config['vhost'],
+        username: ResqueMaster.config['username'],
+        password: ResqueMaster.config['password']
+      )
+
       @connection.start
 
       return @connection

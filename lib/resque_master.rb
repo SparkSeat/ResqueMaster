@@ -52,12 +52,28 @@ module ResqueMaster
     @plugins << plugin.new
   end
 
+  def config
+    @config ||= YAML.load_file(config_file) if config_file
+  end
+
   private
 
   def mq
     @mq ||= ResqueMaster::MQ.new
   end
+
+  def config_file
+    if File.exist?('config/resque_master.yml')
+      File.join(Dir.pwd, 'config/resque_master.yml')
+    else
+      puts '[WARN] No config file found.'
+
+      return nil
+    end
+  end
 end
 
 require 'resque_master/plugins/resque'
 require 'resque_master/plugin_loader'
+
+ResqueMaster::PluginLoader.load
