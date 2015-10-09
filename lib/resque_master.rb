@@ -2,6 +2,7 @@ require 'bunny'
 
 require 'resque_master/version'
 require 'resque_master/mq'
+require 'resque_master/mq_failure'
 
 module ResqueMaster
   extend self
