@@ -1,7 +1,7 @@
 module ResqueMaster
   class Server
     def subscribe
-      mq.queue.subscribe(ack: true) do |delivery_info, _metadata, payload|
+      mq.queue.subscribe(manual_ack: true) do |delivery_info, _metadata, payload|
         args = parse_message(payload)
         method = args.shift
 
