@@ -20,7 +20,7 @@ module ResqueMaster
     end
 
     def queue
-      @queue ||= channel.queue('resque_master', auto_delete: true)
+      @queue ||= channel.queue('resque_master', durable: true)
     end
 
     def exchange
