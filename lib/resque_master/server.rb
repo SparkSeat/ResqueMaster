@@ -1,11 +1,13 @@
 module ResqueMaster
   class Server
     def subscribe
-      mq.queue.subscribe do |_delivery_info, _metadata, payload|
+      mq.queue.subscribe(ack: true) do |delivery_info, _metadata, payload|
         args = parse_message(payload)
         method = args.shift
 
         Resque.send(method, *args)
+
+        mq.channel.acknowledge(delivery_info.delivery_tag, false)
       end
     end
 
