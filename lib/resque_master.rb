@@ -42,7 +42,10 @@ module ResqueMaster
   #   ResqueMaster.run_on_master(:enqueue, ALongJob)
   def run_on_master(method_name, *args)
     message = [method_name, args].flatten
-    mq.exchange.publish(Marshal.dump(message), routing_key: mq.queue.name)
+    mq.exchange.publish(Marshal.dump(message),
+                        routing_key: mq.queue.name,
+                        persistent: true
+                       )
   end
 
   # Register a new ResqueMaster plugin.
