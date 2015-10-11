@@ -39,8 +39,8 @@ module ResqueMaster
 
     # Loads the environment from the given configuration file.
     # Stolen from Redis::CLI
-    def load_enviroment(file = nil)
-      file ||= '.'
+    def load_enviroment
+      file = ResqueMaster.config['environment'] || '.'
 
       if File.directory?(file) && File.exist?(File.expand_path("#{file}/config/environment.rb"))
         require 'rails'
