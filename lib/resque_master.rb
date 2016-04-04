@@ -70,7 +70,7 @@ module ResqueMaster
     if File.exist?('config/resque_master.yml')
       File.join(Dir.pwd, 'config/resque_master.yml')
     else
-      puts '[WARN] No config file found.'
+      puts '[ResqueMaster] [WARN] No config file found.'
 
       return nil
     end
